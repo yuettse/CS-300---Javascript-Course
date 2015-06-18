@@ -1,0 +1,45 @@
+<!DOCUMENT html>
+<html>
+<head>
+<title>Yuet button</title>
+<meta charset='UTF-8'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+
+<script>
+$(function(){
+var col = 'gray';
+		
+		$(".color").click( function(){
+			if (col == 'gray') {
+				col = 'red';
+			}
+			if (col == 'red') {
+				$(this).css("background-color", col);
+				col = 'blue';
+			} else {
+				$(this).css("background-color", col);
+				col = 'red';
+			}
+			
+		});
+		
+		$(".color").hover( function(){
+			$(this).css("background-color", "green");
+			
+		}, function() {
+			$(this).css("background-color", col);
+		});
+	
+	
+});
+
+</script>
+
+<body>
+<button class="color" style='height: 500px; width: 500px;background-color: gray'>Click Me!</button>
+
+
+
+</body>
+</html>
