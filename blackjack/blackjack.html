@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Yuet Tse Black Jack</title>
+	<meta charset="UTF-8">
+	<script src='bj.js'></script>
+</head>
+<style>
+
+
+
+</style>
+
+<body>
+	<div id='container'>
+		
+		<div id='control'>
+			<button onclick='card.reset()'>reset</button>
+			<button onclick='card.gamestart()' id ='start'>Start</button>
+			<button onclick='card.hit()' id ='hit' style='visibility: hidden;'>Hit!</button>
+			<button onclick='card.stay()' id='stay' style='visibility:hidden;'>stay</button>
+			<input type='number' id='betvalue'>
+			<button onclick='card.totalbet()' id='bet'>bet</button>
+		</div>
+		<br>
+		<div>Your $$$$ = <span id='money'>100000</span><br>Your bet = <span id='yourbet'>0</span></div>
+		<div id='dealer'>
+			<h1>dealer</h1>
+			<span id='back'></span><span id='dealercard'></span><br>
+			<span id='dealertotal'></span><br>
+		</div>
+		<div id='player'>
+			<h1>player</h1>
+			<span id='playercard'></span><br>
+			<span id='playertotal'></span>
+		</div>
+		<div id='cardtotal'>
+		</div>
+		<div id='winlose'>
+		</div>
+		<div id='shuffle'>
+		</div>
+	
+	
+	</div>
+
+
+</body>
+
+
+
+
+
+
+
+</html>
