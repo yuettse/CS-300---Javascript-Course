@@ -50,9 +50,6 @@ cards.prototype.reset = function() {
 	document.getElementById('shuffle').innerHTML = '';
 }
 
-
-
-
 cards.prototype.totalbet = function() {
 	this.bet = document.getElementById('betvalue').value;
 	this.showmoney();
@@ -65,13 +62,11 @@ cards.prototype.AJQK = function() {
 		this.display();
 	}
 	
-	
-	console.log(this.deck[this.count][0]);
 	if(this.deck[this.count][0] == 'J' || this.deck[this.count][0] == 'Q' || this.deck[this.count][0] == 'K') {
 		if (this.who == 'dealer') {
 			this.dealer += 10;
 			
-			document.getElementById('dealertotal').innerHTML = 'dealer total = ' + this.dealer;
+			this.showdealer();
 		} else {
 			this.player += 10;
 			
@@ -80,10 +75,10 @@ cards.prototype.AJQK = function() {
 		if (this.who == 'dealer') {
 			if (this.dealer + 11 < 22) {
 				this.dealer += 11;	
-				document.getElementById('dealertotal').innerHTML = 'dealer total = ' + this.dealer;
+				this.showdealer();
 			} else {
 				this.dealer += 1;		
-				document.getElementById('dealertotal').innerHTML = 'dealer total = ' + this.dealer;
+				this.showdealer();
 			}
 		} else {
 			if (this.player + 11 < 22) {
@@ -98,22 +93,19 @@ cards.prototype.AJQK = function() {
 	} else {
 		if (this.who == 'dealer') {
 			this.dealer += this.deck[this.count][0];
-			document.getElementById('dealertotal').innerHTML = 'dealer total = ' + this.dealer;
+			this.showdealer();
 		} else {
 			this.player += this.deck[this.count][0];
-			console.log(this.deck[this.count][0]);
-			console.log(this.player);
+			
 		}
 	}
 	
 	if(this.player > 21) {
 		document.getElementById('winlose').innerHTML = 'Uh Oh You Got ' + this.player;
-		document.getElementById('start').style.visibility = 'visible';
-		document.getElementById('hit').style.visibility = 'hidden';
-		document.getElementById('stay').style.visibility = 'hidden';
+		this.hitAndStay(false);
 		this.displayBack();
 		this.showbet();
-		document.getElementById('dealertotal').innerHTML = 'dealer total = ' + this.dealer;
+		this.showdealer();
 	}
 	
 	document.getElementById('playertotal').innerHTML = 'player total = ' + this.player;
@@ -156,16 +148,14 @@ cards.prototype.gamestart = function() {
 	this.AJQK();
 	this.back = this.drawback();
 	this.AJQK();
-	console.log(this.back);
+	
 	document.getElementById('back').innerHTML = "back";
 	this.who = 'player';
 	
 	this.AJQK();	
 		
 	this.AJQK();
-	document.getElementById('start').style.visibility = 'hidden';
-	document.getElementById('hit').style.visibility = 'visible';
-	document.getElementById('stay').style.visibility = 'visible';
+	this.hitAndStay(true);
 	document.getElementById('dealertotal').innerHTML = 'dealer total = ?';
 	this.blackjack();
 	
@@ -179,8 +169,14 @@ cards.prototype.hit = function() {
 	this.AJQK();
 	
 }
+cards.prototype.showdealer = function() {
+	document.getElementById('dealertotal').innerHTML = 'dealer total = ' + this.dealer;
+}
 
-
+cards.prototype.showplayer = function() {
+	document.getElementById('playertotal').innerHTML = 'player total = ' + this.player;
+	
+}
 
 cards.prototype.stay = function () {
 	this.displayBack();
@@ -204,39 +200,42 @@ cards.prototype.stay = function () {
 	
 	this.showmoney();
 	this.showbet();
-	document.getElementById('dealertotal').innerHTML = 'dealer total = ' + this.dealer;
-	document.getElementById('start').style.visibility = 'visible';
-	document.getElementById('hit').style.visibility = 'hidden';
-	document.getElementById('stay').style.visibility = 'hidden';
+	this.showdealer();
+	this.hitAndStay(false);
 }
 
 cards.prototype.blackjack = function() {
 	if( this.dealer == 21 && this.player == 21 ) {
 		document.getElementById('winlose').innerHTML = 'You Both Got BlackJack!';
-		document.getElementById('dealertotal').innerHTML = 'dealer total = ' + this.dealer;
-		document.getElementById('start').style.visibility = 'visible';
-		document.getElementById('hit').style.visibility = 'hidden';
-		document.getElementById('stay').style.visibility = 'hidden';
+		this.showdealer();
+		this.hitAndStay(false);
 		this.showbet();
 	} else if( this.dealer == 21 && this.dealer > this.player) {
 		document.getElementById('winlose').innerHTML = 'Sorry, you lose';	
-		document.getElementById('dealertotal').innerHTML = 'dealer total = ' + this.dealer;
-		document.getElementById('start').style.visibility = 'visible';
-		document.getElementById('hit').style.visibility = 'hidden';
-		document.getElementById('stay').style.visibility = 'hidden';
+		this.showdealer();
+		this.hitAndStay(false);
 		this.showbet();		
 	} else if( this.player == 21 && this.player > this.dealer) {
 		document.getElementById('winlose').innerHTML = 'Oh! Congratz!';	
-		document.getElementById('dealertotal').innerHTML = 'dealer total = ' + this.dealer;		
-		document.getElementById('start').style.visibility = 'visible';
-		document.getElementById('hit').style.visibility = 'hidden';
-		document.getElementById('stay').style.visibility = 'hidden';
+		this.showdealer();	
+		this.hitAndStay(false);
 		this.win();
 		this.showbet();
 	}
 	
 }
 
+cards.prototype.hitAndStay = function(on) {
+	if(on == false) {
+		document.getElementById('start').style.visibility = 'visible';
+		document.getElementById('hit').style.visibility = 'hidden';
+		document.getElementById('stay').style.visibility = 'hidden';
+	} else {
+		document.getElementById('start').style.visibility = 'hidden';
+		document.getElementById('hit').style.visibility = 'visible';
+		document.getElementById('stay').style.visibility = 'visible';
+	}
+}
 
 
 cards.prototype.display = function () {
