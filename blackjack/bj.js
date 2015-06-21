@@ -85,7 +85,7 @@ cards.prototype.AJQK = function() {
 				this.player += 11;	
 				
 			} else {
-				this.player += 1;	
+				this.player += 1;
 				
 								
 			}
